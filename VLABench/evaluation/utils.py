@@ -328,12 +328,14 @@ def get_final_score(standard_skill_sequence, model_skill_sequence, dependency):
         "skill_with_entity_match_score": 0.1,
         "exact_match_score": 0.1
     }
-    total_score = sum(score_weight[key] * value for key, value in skill_entity_scores.items())
-    
-    return {
+
+    scores = {
         "skill_match_score": skill_entity_scores["skill_match_score"],
         "entity_match_score": skill_entity_scores["entity_match_score"],
         "skill_with_entity_match_score": skill_with_entity_scores["skill_with_entity_match_score"],
-        "exact_match_score": exact_match_score,
-        "total_score": total_score
+        "exact_match_score": exact_match_score
     }
+
+    scores["total_score"] = sum(score_weight[key] * value for key, value in scores.items())
+    
+    return scores
